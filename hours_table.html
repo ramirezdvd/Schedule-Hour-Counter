@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>30 x 7 Table with Half-Hour Time Headers</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #142850 0%, #27496d 100%);
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      color: #eaf6fb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h2 {
+     margin: 0;
+    }
+    @import url('https://fonts.googleapis.com/css?family=Orbitron:700,400');
+    #schedule-table {
+      width: 70%;
+      margin: 2% auto 0 auto;
+      background: rgba(6, 18, 45, 0.97);
+      box-shadow: 0 0 32px 4px #2d9cdb80, 0 0 0 4px #223a5e inset;
+      border-radius: 24px;
+      overflow: hidden;
+      border: none;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      font-size: 0.95em;
+      letter-spacing: 0.04em;
+      transition: box-shadow 0.2s;
+    }
+    table, th, td {
+      border: none;
+      border-collapse: collapse;
+    }
+    th, td {
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      transition: background 0.15s, color 0.15s;
+    }
+    th.time {
+      width: 60px;
+      background: linear-gradient(90deg, #1b3358 60%, #2d9cdb 100%);
+      color: #fff;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      border-right: 2px solid #2d9cdb;
+      border-left: none;
+      font-size: 1.1em;
+      text-shadow: 0 0 8px #2d9cdbcc;
+    }
+    thead td {
+      background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+      color: #eaf6fb;
+      font-weight: bold;
+      border-bottom: 2px solid #2d9cdb;
+      font-size: 0.95em;
+      text-shadow: 0 0 6px #2d9cdb99;
+    }
+    /* Add vertical separator lines between hours */
+    td.time-separator, th.time-separator {
+      border-left: 2px solid #2d9cdb;
+      box-shadow: -2px 0 8px -5px #2d9cdbcc;
+    }
+    td.selected {
+      background: linear-gradient(135deg, #2d9cdb 0%, #eaf6fb 90%);
+      color: #132b47;
+      box-shadow: 0 0 8px 2px #2d9cdb88 inset;
+      font-weight: bold;
+    }
+    tbody td {
+      background: rgba(27,51,88,0.95);
+      color: #b5e0fd;
+      cursor: pointer;
+      border-bottom: 1px solid #2d9cdb44;
+      border-right: 1px solid #2d9cdb22;
+    }
+    tbody td:hover:not(.selected) {
+      background: #27496d55;
+      color: #fff;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    tbody tr td:last-child {
+      border-right: none;
+    }
+    div {
+      width: 70%;
+      margin: 2% auto 0 auto;
+      text-align: center;
+      padding: 18px 0 14px 0;
+      background: rgba(19, 43, 71, 0.85);
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 4px 24px 2px #2d9cdb33;
+      font-size: 1.25em;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      letter-spacing: 0.07em;
+      border-bottom: 2px solid #2d9cdbbb;
+      color: #eaf6fb;
+    }
+
+   .schedule {
+    height: 500px;
+    width: 70%;
+    }
+
+    #time-counter {
+      color: #2d9cdb;
+      font-weight: bold;
+      text-shadow: 0 0 6px #2d9cdbcc;
+    }
+    @media (max-width: 900px) {
+      #schedule-table, div {
+        width: 98%;
+        font-size: 0.82em;
+      }
+      th.time { font-size: 0.98em; }
+    }
+
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Orbitron:700,400" rel="stylesheet">
+</head>
+<body>
+  <div>
+    <strong>Accumulated Time:</strong>
+    <span id="time-counter">0 hours, 0 minutes</span>
+  </div>
+  <table id="schedule-table">
+    <thead>
+      <tr>
+        <td class="time"></td>
+        <td>6am</td><td>6:30</td>
+        <td class="time-separator">7am</td><td>7:30</td>
+        <td class="time-separator">8am</td><td>8:30</td>
+        <td class="time-separator">9am</td><td>9:30</td>
+        <td class="time-separator">10am</td><td>10:30</td>
+        <td class="time-separator">11am</td><td>11:30</td>
+        <td class="time-separator">12pm</td><td>12:30</td>
+        <td class="time-separator">1pm</td><td>1:30</td>
+        <td class="time-separator">2pm</td><td>2:30</td>
+        <td class="time-separator">3pm</td><td>3:30</td>
+        <td class="time-separator">4pm</td><td>4:30</td>
+        <td class="time-separator">5pm</td><td>5:30</td>
+        <td class="time-separator">6pm</td><td>6:30</td>
+        <td class="time-separator">7pm</td><td>7:30</td>
+        <td class="time-separator">8pm</td><td>8:30</td>
+        <td class="time-separator">9pm</td><td>9:30</td>
+        <td class="time-separator">10pm</td><td>10:30</td>
+        <td class="time-separator">11pm</td><td>11:30</td>
+        <td class="time-separator">12am</td><td>12:30</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="time">Sunday</th>
+        <td></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+      </tr>
+      <tr>
+        <th class="time">Monday</th>
+        <td></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+      </tr>
+      <tr>
+        <th class="time">Tuesday</th>
+        <td></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+      </tr>
+      <tr>
+        <th class="time">Wednesday</th>
+        <td></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+      </tr>
+      <tr>
+        <th class="time">Thursday</th>
+        <td></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+      </tr>
+      <tr>
+        <th class="time">Friday</th>
+        <td></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+      </tr>
+      <tr>
+        <th class="time">Saturday</th>
+        <td></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+        <td class="time-separator"></td><td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class = "schedule"> <h2>Schedule 6-29</h2>
+  <embed src="SCHEDULE.pdf" width="100%" height="100%">
+  </div>
+
+  <script>
+    // Keep track of the total selected cells (each 30 minutes)
+    let counter = 0;
+
+    // Update the display
+    function updateCounterDisplay() {
+      let hours = Math.floor(counter / 2);
+      let minutes = (counter % 2) * 30;
+      document.getElementById('time-counter').textContent = `${hours} hours, ${minutes} minutes`;
+    }
+
+    // Set up click handlers for all <td> in tbody (not headers)
+    document.querySelectorAll('#schedule-table tbody td').forEach(td => {
+      td.addEventListener('click', function () {
+        // Toggle selection
+        if (td.classList.contains('selected')) {
+          td.classList.remove('selected');
+          counter--;
+        } else {
+          td.classList.add('selected');
+          counter++;
+        }
+        updateCounterDisplay();
+      });
+    });
+
+    // Initialize display
+    updateCounterDisplay();
+  </script>
+</body>
+</html>
